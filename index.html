@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navbar Styles */
+        header {
+            background-color: #3655d1;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .navbar-nav {
+            display: flex;
+        }
+
+        .nav-item {
+            margin: 0 10px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #3655d1;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer-links {
+            margin-bottom: 10px;
+        }
+
+        .footer-link {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Age Calculator Styles */
+        .age-calculator {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .age-calculator label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .age-calculator input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .age-calculator button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .age-calculator button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container navbar">
+        <a href="#" class="navbar-brand">Age Calculator</a>
+        <nav class="navbar-nav">
+            <a href="#" class="nav-item nav-link">Home</a>
+            <a href="#" class="nav-item nav-link">About</a>
+            <a href="#" class="nav-item nav-link">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+    <div class="age-calculator">
+        <h2>Age Calculator</h2>
+        <div>
+            <label for="birthdate">Enter Your Birthdate:</label>
+            <input type="date" id="birthdate">
+            <button id="calculate">Calculate Age</button>
+            <div id="birthdateError" class="error"></div>
+        </div>
+        <div id="result"></div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 Suraj Kumar</p>
+    </div>
+</footer>
+
+<script>
+    document.getElementById('calculate').addEventListener('click', function() {
+        var birthdate = new Date(document.getElementById('birthdate').value);
+        var today = new Date();
+        if (birthdate > today) {
+            document.getElementById('birthdateError').innerText = "Please enter a valid birthdate";
+            document.getElementById('result').innerText = "";
+        } else {
+            var ageInYears = today.getFullYear() - birthdate.getFullYear();
+            var monthDiff = today.getMonth() - birthdate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthdate.getDate())) {
+                ageInYears--;
+            }
+            var ageInDays = Math.floor((today - birthdate) / (1000 * 60 * 60 * 24));
+            document.getElementById('birthdateError').innerText = "";
+            var message = 'Your age is ' + ageInYears + ' years and ' + ageInDays + ' days.';
+            document.getElementById('result').innerText = message;
+            alert(message); // Display pop-up message
+        }
+    });
+</script>
+
+</body>
+</html>
